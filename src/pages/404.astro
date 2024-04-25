@@ -1,0 +1,22 @@
+---
+import Layout from "@/layouts/Layout.404.astro";
+import {SpotifyIcon} from "@/icons/SpotifyIcon";
+---
+
+<Layout title="404 - Not Found">
+    <main class="w-screen h-[400px] p-8 flex flex-col items-center">
+        <div>
+            <SpotifyIcon styles="size-[60px]"/>
+        </div>
+        
+        <div class="text-center">
+            <h1 class="mt-10 mb-4 text-5xl font-bold tracking-tighter">Page not available</h1>
+            <p class="mb-10 text-[#a7a7a7] ">Something went wrong, please try again later.</p>
+            
+            <div class="flex flex-col items-center">
+                <a href="/" class="inline-block leading-6 mb-9 py-3 px-8 bg-white bord text-black font-bold border-solid border-[#878787] rounded-[48px]">Home</a>
+                <a href="" class="font-bold">Help</a>
+            </div>
+        </div>
+    </main>
+</Layout>

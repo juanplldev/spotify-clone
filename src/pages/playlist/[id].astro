@@ -1,0 +1,59 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import MainHeader from "@/components/MainHeader";
+import {SpotifyIcon} from "@/icons/SpotifyIcon";
+import {playlists, songs} from "@/lib/api";
+
+const {id} = Astro.params;
+const playlist = playlists.find(playlist => playlist.id === id);
+const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId);
+
+// const songsDurations = playlistSongs.map(song => song.duration);
+// songsDurations.map((duration, index) => {
+//     const [minutes, seconds] = duration.split(":");
+    
+// });
+// console.log(songsDurations);
+---
+
+<Layout title={playlist?.title || ""}>
+    <div class="h-full w-full py-2 px-6 relative flex flex-col overflow-x-hidden rounded-lg bg-[#121212]" transition:name={`main-playlist-${id}-container`} >
+        <header class="h-[334px] flex flex-col">
+            <MainHeader color={playlist?.color.dark}/>
+            
+            <div class="h-full flex items-center">
+                <picture class="size-[232px] mr-6 shadow-2xl shadow-[#00000080]">
+                    <img src={playlist?.cover} alt={`${playlist?.title} cover`} class="size-[232px] rounded-[4px]" transition:name={`main-playlist-${id}-img`}/>
+                </picture>
+                
+                <div class="h-full pb-6 flex flex-col justify-end text-left items-start gap-2">
+                    <span class="text-sm">Playlist</span>
+                    <h1 class="text-8xl font-extrabold" transition:name={`main-playlist-${id}-title`}>{playlist?.title}</h1>
+                    <span class="text-sm text-[#ffffffb3]">{playlist?.description}</span>
+                        
+                    <div class="flex items-center gap-1">
+                        <SpotifyIcon styles="size-6"/>
+                        
+                        <a href="" class="text-sm font-bold" transition:name={`main-playlist-${id}-artists`}>
+                            {
+                                playlist?.artists.map((artist, index) => {
+                                    return (
+                                        <span class="inline-flex">
+                                            <p class="hover:underline hover:text-white">{artist}</p>
+                                            {
+                                                index + 1 < playlist?.artists.length && <>,&nbsp;</>
+                                            }
+                                        </span>
+                                    );
+                                })
+                            }
+                        </a>
+                        
+                        <p class="text-sm text-[#ffffffb3]">• {playlistSongs.length} songs, about 2 hr 30min</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+    </div>
+</Layout>

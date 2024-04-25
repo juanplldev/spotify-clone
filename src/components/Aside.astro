@@ -1,0 +1,46 @@
+---
+import type {Playlist} from "@/lib/api";
+import AsideItem from "@/components/AsideItem.astro"
+import AsidePlaylistCard from "@/components/AsidePlaylistCard.astro";
+import {Home, Search, Library} from "@/icons/AsideIcons";
+
+interface Props
+{
+    playlists: Playlist[];
+};
+
+const {playlists} = Astro.props;
+---
+
+
+<nav class="h-full flex flex-col gap-2">
+    <div class="bg-[#121212] rounded-lg">
+        <ul class="py-2 px-3">
+            <AsideItem href="/#">
+                <Home styles="h-6 w-6 fill-current" type=""/>
+                <!-- <span class="font-bold">Home</span> -->
+                <span>Home</span>
+            </AsideItem>
+            
+            <AsideItem href="/#">
+                <Search styles="h-6 w-6 fill-current" type=""/>
+                <span>Search</span>
+            </AsideItem>
+        </ul>
+    </div>
+    
+    <div class="bg-[#121212] rounded-lg h-full">
+        <ul class="py-2 px-3">
+            <AsideItem type="button">
+                <Library styles="h-6 w-6 fill-current" type="filled"/>
+                <span>Your Library</span>
+            </AsideItem>
+        </ul>
+        
+        <ul>
+            {
+                playlists.map(playlist => <AsidePlaylistCard playlist={playlist} isPlaying={false} pinned={true} />)
+            }
+        </ul>
+    </div>
+</nav>
