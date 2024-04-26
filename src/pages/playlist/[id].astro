@@ -1,12 +1,16 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import MainHeader from "@/components/MainHeader";
+import MainHeader from "@/components/Main/Header.astro";
+import Background from "@/components/Playlist/Background";
+import PlayButton from "@/components/PlayButton";
 import {SpotifyIcon} from "@/icons/SpotifyIcon";
+import {AddPlaylist, ThreeDots, ListView} from "@/icons/PlaylistIcons";
 import {playlists, songs} from "@/lib/api";
 
 const {id} = Astro.params;
 const playlist = playlists.find(playlist => playlist.id === id);
 const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId);
+const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-clone";
 
 // const songsDurations = playlistSongs.map(song => song.duration);
 // songsDurations.map((duration, index) => {
@@ -16,10 +20,11 @@ const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId);
 // console.log(songsDurations);
 ---
 
-<Layout title={playlist?.title || ""}>
-    <div class="h-full w-full py-2 px-6 relative flex flex-col overflow-x-hidden rounded-lg bg-[#121212]" transition:name={`main-playlist-${id}-container`} >
-        <header class="h-[334px] flex flex-col">
-            <MainHeader color={playlist?.color.dark}/>
+<Layout title={title}>
+    <div class="h-full w-full pt-2 relative flex flex-col overflow-x-hidden rounded-lg bg-[#121212]" transition:name={`main-playlist-${id}-container`} >
+        <header class="h-[334px] flex flex-col px-6">
+            <Background color={playlist?.color.dark} />
+            <MainHeader/>
             
             <div class="h-full flex items-center">
                 <picture class="size-[232px] mr-6 shadow-2xl shadow-[#00000080]">
@@ -55,5 +60,25 @@ const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId);
             </div>
         </header>
         
+        <section class="flex flex-1 px-6 bg-[#121212] bg-opacity-30">
+            <div class="h-24 w-full flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <PlayButton id={id} isPlaying={false} size="lg"/>
+                    
+                    <button>
+                        <AddPlaylist styles="size-8 fill-[#b3b3b3] hover:fill-white transition duration-100 hover:scale-105"/>
+                    </button>
+                    
+                    <button>
+                        <ThreeDots styles="size-8 fill-[#b3b3b3] hover:fill-white transition duration-100 hover:scale-105"/>
+                    </button>
+                </div>
+                
+                <button class="flex items-center text-sm text-[#b3b3b3] gap-2 fill-[#b3b3b3] hover:fill-white hover:text-white transition duration-100">
+                    <span>List</span>
+                    <ListView styles="size-4"/>
+                </button>
+            </div>
+        </section>
     </div>
 </Layout>

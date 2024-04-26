@@ -1,13 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import MainHeader from "@/components/MainHeader";
-import HeaderPlaylistCard from "@/components/HeaderPlaylistCard.astro";
-import MainPlaylistCard from "@/components/MainPlaylistCard.astro";
+import MainHeader from "@/components/Main/Header.astro";
+import Background from "@/components/Main/Background";
+import HeaderPlaylistCard from "@/components/Main/TopPlaylistCard.astro";
+import MainPlaylistCard from "@/components/Main/MainPlaylistCard.astro";
 import {playlists} from "@/lib/api";
 
 const currentDate = new Date();
 const currentTime = currentDate.getHours();
-const color = "red";
 ---
 
 
@@ -15,7 +15,8 @@ const color = "red";
     <div id="main-container" class="relative h-full w-full py-2 px-6 rounded-lg bg-[#121212] z-10">
         
         <header>
-            <MainHeader color="" client:load/>
+            <Background color="" />
+            <MainHeader/>
             
             <div class="flex items-center py-2">
                 <h2 class="font-bold text-3xl">
