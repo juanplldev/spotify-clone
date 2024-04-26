@@ -1,7 +1,7 @@
 ---
 import type {Playlist} from "@/lib/api";
-import AsideItem from "@/components/Aside/Item.astro"
-import AsidePlaylistCard from "@/components/Aside/PlaylistCard.astro";
+import Item from "@/components/Aside/Item.astro"
+import PlaylistCard from "@/components/Aside/PlaylistCard.astro";
 import {Home, Search, Library} from "@/icons/AsideIcons";
 
 interface Props
@@ -16,30 +16,30 @@ const {playlists} = Astro.props;
 <nav class="h-full flex flex-col gap-2">
     <div class="bg-[#121212] rounded-lg">
         <ul class="py-2 px-3">
-            <AsideItem href="/#">
+            <Item href="/#">
                 <Home styles="h-6 w-6 fill-current" type=""/>
                 <!-- <span class="font-bold">Home</span> -->
                 <span>Home</span>
-            </AsideItem>
+            </Item>
             
-            <AsideItem href="/#">
+            <Item href="/#">
                 <Search styles="h-6 w-6 fill-current" type=""/>
                 <span>Search</span>
-            </AsideItem>
+            </Item>
         </ul>
     </div>
     
     <div class="bg-[#121212] rounded-lg h-full">
         <ul class="py-2 px-3">
-            <AsideItem type="button">
+            <Item type="button">
                 <Library styles="h-6 w-6 fill-current" type="filled"/>
                 <span>Your Library</span>
-            </AsideItem>
+            </Item>
         </ul>
         
         <ul>
             {
-                playlists.map(playlist => <AsidePlaylistCard playlist={playlist} isPlaying={false} pinned={true} />)
+                playlists.map(playlist => <PlaylistCard playlist={playlist} pinned={true} />)
             }
         </ul>
     </div>

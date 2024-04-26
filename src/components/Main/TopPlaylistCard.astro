@@ -1,15 +1,14 @@
 ---
 import type {Playlist} from "@/lib/api";
-import PlayButton from "../PlayButton";
-import {Equalizer} from "@/icons/MainIcons";
+import PlayButton from "@/components/PlayButton";
+import PlayingPlaylistIcon from "@/components/PlayingPlaylistIcon";
 
 interface Props
 {
     playlist: Playlist;
-    isPlaying: boolean;
 };
 
-const {playlist, isPlaying} = Astro.props;
+const {playlist} = Astro.props;
 const {id, cover, title} = playlist;
 ---
 
@@ -25,13 +24,11 @@ const {id, cover, title} = playlist;
         </div>
         
         <div class="w-16">
-            {
-                isPlaying && <Equalizer styles="h-4 w-4 fill-[#1DB954]"/>
-            }
+            <PlayingPlaylistIcon id={id} type="top" client:idle/>
         </div>
     </a>
     
     <div class="absolute right-2 top-2 opacity-0 group-hover:opacity-100 z-10">
-        <PlayButton id={id} isPlaying={isPlaying} />
+        <PlayButton id={id} client:idle />
     </div>
 </li>

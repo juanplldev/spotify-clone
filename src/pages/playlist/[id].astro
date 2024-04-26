@@ -63,7 +63,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
         <section class="flex flex-1 px-6 bg-[#121212] bg-opacity-30">
             <div class="h-24 w-full flex items-center justify-between">
                 <div class="flex items-center gap-8">
-                    <PlayButton id={id} isPlaying={false} size="lg"/>
+                    <PlayButton id={id} isPlaying={false} size="lg" client:visible />
                     
                     <button>
                         <AddPlaylist styles="size-8 fill-[#b3b3b3] hover:fill-white transition duration-100 hover:scale-105"/>

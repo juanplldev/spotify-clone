@@ -1,14 +1,13 @@
 ---
 import type {Playlist} from "@/lib/api";
-import PlayButton from "../PlayButton";
+import PlayButton from "@/components/PlayButton";
 
 interface Props
 {
     playlist: Playlist;
-    isPlaying: boolean;
 };
 
-const {playlist, isPlaying} = Astro.props;
+const {playlist} = Astro.props;
 const {id, cover, title, artists} = playlist;
 ---
 
@@ -39,6 +38,6 @@ const {id, cover, title, artists} = playlist;
     </a>
     
     <div class="absolute right-4 bottom-20 pr-1 pb-6 translate-y-2 transition-all duration-300 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 z-10">
-        <PlayButton id={id} isPlaying={isPlaying} />
+        <PlayButton id={id} client:visible />
     </div>
 </li>

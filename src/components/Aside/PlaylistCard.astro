@@ -1,15 +1,15 @@
 ---
 import type {Playlist} from "@/lib/api";
-import {Pinned, Volume} from "@/icons/AsideIcons";
+import PlayingPlaylistIcon from "@/components/PlayingPlaylistIcon";
+import {Pinned} from "@/icons/AsideIcons";
 
 interface Props
 {
     playlist: Playlist;
-    isPlaying: boolean;
     pinned?: boolean;
 };
 
-const {playlist, isPlaying, pinned} = Astro.props;
+const {playlist, pinned} = Astro.props;
 const {id, cover, title, artists} = playlist;
 const joinedArtists = artists.join(", ");
 ---
@@ -23,7 +23,7 @@ const joinedArtists = artists.join(", ");
         
         <div class="w-full h-full flex flex-row justify-between">
             <div class="flex flex-col items-start">
-                <h2 class:list={["line-clamp-1", isPlaying && "text-[#1ed760]"]}>{title}</h2>
+                <PlayingPlaylistIcon id={id} type="title" title={title} client:idle/>
                 
                 <div class="flex items-center gap-2">
                     {
@@ -35,9 +35,7 @@ const joinedArtists = artists.join(", ");
             </div>
             
             <div class="h-full w-8 p-2 flex items-center justify-center">
-                {
-                    isPlaying && <Volume styles="h-4 w-4 fill-[#1DB954]"/>
-                }
+                <PlayingPlaylistIcon id={id} type="aside" client:idle/>
             </div>
         </div>
     </a>

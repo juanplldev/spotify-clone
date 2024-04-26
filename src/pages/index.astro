@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import MainHeader from "@/components/Main/Header.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Main/Header.astro";
 import Background from "@/components/Main/Background";
-import HeaderPlaylistCard from "@/components/Main/TopPlaylistCard.astro";
+import TopPlaylistCard from "@/components/Main/TopPlaylistCard.astro";
 import MainPlaylistCard from "@/components/Main/MainPlaylistCard.astro";
 import {playlists} from "@/lib/api";
 
@@ -16,7 +16,7 @@ const currentTime = currentDate.getHours();
         
         <header>
             <Background color="" />
-            <MainHeader/>
+            <Header/>
             
             <div class="flex items-center py-2">
                 <h2 class="font-bold text-3xl">
@@ -33,7 +33,7 @@ const currentTime = currentDate.getHours();
         
         <ul class="h-40 w-full pt-2 gap-x-3 grid grid-cols-4 grid-rows-2">
             {
-                playlists.map(playlist => <HeaderPlaylistCard playlist={playlist} isPlaying={false} />)
+                playlists.map(playlist => <TopPlaylistCard playlist={playlist} />)
             }
         </ul>
         
@@ -42,7 +42,7 @@ const currentTime = currentDate.getHours();
             
             <ul class="flex -ml-3">
                 {
-                    playlists.map(playlist => <MainPlaylistCard playlist={playlist} isPlaying={false} />)
+                    playlists.map(playlist => <MainPlaylistCard playlist={playlist} />)
                 }
             </ul>
         </div>
