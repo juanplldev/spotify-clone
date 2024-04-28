@@ -31,7 +31,7 @@ const currentTime = currentDate.getHours();
             </div>
         </header>
         
-        <ul class="h-40 w-full pt-2 gap-x-3 grid grid-cols-4 grid-rows-2">
+        <ul class="min-40 w-full pt-2 gap-2 grid grid-cols-2 grid-rows-4 xl:gap-x-3 xl:grid-cols-4 xl:grid-rows-2">
             {
                 playlists.map(playlist => <TopPlaylistCard playlist={playlist} />)
             }
@@ -40,7 +40,7 @@ const currentTime = currentDate.getHours();
         <div class="w-full mt-7">
             <h2 class="font-bold text-2xl">Made for you</h2>
             
-            <ul class="flex -ml-3">
+            <ul class="flex flex-wrap -ml-3">
                 {
                     playlists.map(playlist => <MainPlaylistCard playlist={playlist} />)
                 }
