@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import MainHeader from "@/components/Main/Header.astro";
 import Background from "@/components/Playlist/Background";
 import PlayButton from "@/components/PlayButton";
+import SongTable from "@/components/Playlist/SongTable.astro";
 import {SpotifyIcon} from "@/icons/SpotifyIcon";
 import {AddPlaylist, ThreeDots, ListView} from "@/icons/PlaylistIcons";
 import {playlists, songs} from "@/lib/api";
@@ -60,7 +61,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
             </div>
         </header>
         
-        <section class="flex flex-1 px-6 bg-[#121212] bg-opacity-30">
+        <section class="flex flex-1 flex-col px-6 bg-[#121212]/30">
             <div class="h-24 w-full flex items-center justify-between">
                 <div class="flex items-center gap-8">
                     <PlayButton id={id} isPlaying={false} size="lg" client:visible />
@@ -78,6 +79,10 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                     <span>List</span>
                     <ListView styles="size-4"/>
                 </button>
+            </div>
+            
+            <div class="pt-4">
+                <SongTable songs={playlistSongs} />
             </div>
         </section>
     </div>

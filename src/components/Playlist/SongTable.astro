@@ -1,0 +1,89 @@
+---
+import type {Song} from "@/lib/api";
+import {Clock, Play, AddPlaylist, ThreeDots} from "@/icons/PlaylistIcons";
+
+interface Props
+{
+    songs: Song[];
+};
+
+const {songs} = Astro.props;
+---
+
+
+<table class="table-auto text-left w-full">
+    <thead class="border-b-[1px] border-b-[#ffffff1a]">
+        <tr class="text-[#b3b3b3] text-sm">
+            <th class="font-normal text-[16px] text-center pb-2">#</th>
+            <th class="font-normal pb-2">Title</th>
+            <th class="font-normal pb-2">Album</th>
+            <th class="font-normal pb-2">Date added</th>
+            <th class="pb-2 absolute right-[75px]">
+                <Clock styles="fill-[#b3b3b3] size-4"/>
+            </th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {
+            songs.map((song, index) => {
+                return (
+                    <tr class="hover:bg-[#ffffff1a] focus:bg-[#ffffff4d] duration-75 group relative">
+                        <td class="song-container py-[6px] text-[#b3b3b3] text-center align-middle rounded-tl-md rounded-bl-md">
+                            <span class="group-hover:opacity-0 transition-all duration-75">{index + 1}</span>
+                            <Play styles="fill-white size-4 absolute left-4 bottom-5 opacity-0 group-hover:opacity-100 transition-all duration-75"/>
+                        </td>
+                        <td class="py-[6px] flex items-center gap-3">
+                            <picture class="size-10">
+                                <img src={song.image} alt={`${song} cover`} class="size-full rounded">
+                            </picture>
+                            
+                            <div class="flex flex-col">
+                                <a href="" class="hover:underline">{song.title}</a>
+                                
+                                {
+                                    song.artists.map((artist, index) => {
+                                        return (
+                                            <a href="" class="inline-flex">
+                                                <p class="text-sm text-[#b3b3b3] hover:underline group-hover:text-white">{artist}</p>
+                                                {
+                                                    index + 1 < song.artists.length && <>,&nbsp;</>
+                                                }
+                                            </a>
+                                        );
+                                    })
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <a href="" class="text-sm text-[#b3b3b3] hover:underline group-hover:text-white">{song.album}</a>
+                        </td>
+                        <td class="py-[6px] text-sm text-[#b3b3b3]">Apr 26, 2024</td>
+                        <td class="py-[6px]">
+                            <button>
+                                <AddPlaylist styles="size-4 fill-[#b3b3b3] absolute bottom-5 right-[100px] opacity-0 group-hover:opacity-100 hover:fill-white transition duration-100 hover:scale-105"/>
+                            </button>
+                        </td>
+                        <td class="py-[6px]">
+                            <button>
+                                <ThreeDots styles="size-6 fill-[#b3b3b3] absolute bottom-4 right-2 opacity-0 group-hover:opacity-100 hover:fill-white transition duration-100 hover:scale-105"/>
+                            </button>
+                        </td>
+                        <td class="py-[6px] text-center text-sm text-[#b3b3b3] rounded-tr-md rounded-br-md">{song.duration}</td>
+                    </tr>
+                );
+            })
+        }
+    </tbody>
+</table>
+
+
+<style>
+    tbody:before
+    {
+        line-height:1em;
+        content:"-";
+        color:transparent;
+        display:block;
+    }
+</style>

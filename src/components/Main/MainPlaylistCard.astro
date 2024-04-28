@@ -11,8 +11,8 @@ const {playlist} = Astro.props;
 const {id, cover, title, artists} = playlist;
 ---
 
-<li class="group relative">
-    <a href={`/playlist/${id}`} class="h-[268px] p-3 gap-3 flex flex-col rounded-md bg-transparent hover:bg-[#1a1a1a] transition duration-100" transition:name={`main-playlist-${id}-container`}>
+<li class="group relative rounded-md bg-transparent hover:bg-[#1a1a1a] transition duration-100">
+    <a href={`/playlist/${id}`} class="h-[268px] p-3 gap-3 flex flex-col" transition:name={`main-playlist-${id}-container`}>
         <picture class="size-40 flex-none">
             <img src={cover} alt={`${title} cover`} class="size-full rounded-md" transition:name={`main-playlist-${id}-img`}/>
         </picture>
