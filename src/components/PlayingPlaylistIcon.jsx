@@ -1,4 +1,3 @@
-import React from "react";
 import {usePlayerStore} from "@/store/playerStore";
 import {Equalizer} from "@/icons/MainIcons";
 import {Volume} from "@/icons/AsideIcons";

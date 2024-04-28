@@ -1,6 +1,3 @@
-import React from "react";
-
-
 function Background(props)
 {
     const color = props.color || "#222222";
