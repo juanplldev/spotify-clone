@@ -3,22 +3,15 @@ import Layout from "@/layouts/Layout.astro";
 import MainHeader from "@/components/Main/Header.astro";
 import Background from "@/components/Playlist/Background";
 import PlayButton from "@/components/PlayButton";
-import SongTable from "@/components/Playlist/SongTable.astro";
+import SongsTable from "@/components/Playlist/SongsTable";
 import {SpotifyIcon} from "@/icons/SpotifyIcon";
 import {AddPlaylist, ThreeDots, ListView} from "@/icons/PlaylistIcons";
-import {playlists, songs} from "@/lib/api";
+import {playlists, songs} from "@/lib/data";
 
 const {id} = Astro.params;
 const playlist = playlists.find(playlist => playlist.id === id);
 const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId);
 const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-clone";
-
-// const songsDurations = playlistSongs.map(song => song.duration);
-// songsDurations.map((duration, index) => {
-//     const [minutes, seconds] = duration.split(":");
-    
-// });
-// console.log(songsDurations);
 ---
 
 <Layout title={title}>
@@ -82,7 +75,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
             </div>
             
             <div class="pt-4">
-                <SongTable songs={playlistSongs} />
+                <SongsTable id={id} songs={playlistSongs} client:visible/>
             </div>
         </section>
     </div>

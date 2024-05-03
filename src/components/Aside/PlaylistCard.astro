@@ -1,5 +1,5 @@
 ---
-import type {Playlist} from "@/lib/api";
+import type {Playlist} from "@/lib/data";
 import PlayingPlaylistIcon from "@/components/PlayingPlaylistIcon";
 import {Pinned} from "@/icons/AsideIcons";
 
@@ -16,9 +16,9 @@ const joinedArtists = artists.join(", ");
 
 
 <li class="px-2">
-    <a href={`/playlist/${id}`} class="h-16 w-full p-2 gap-3 flex items-center rounded-[8px] hover:bg-[#1a1a1a] transition duration-100">
+    <a href={`/playlist/${id}`} class="h-16 w-full p-2 gap-3 flex items-center rounded-[8px] hover:bg-[#1a1a1a] transition duration-100" transition:name={`aside-playlist-${id}-container`}>
         <picture class="size-12 flex-none">
-            <img src={cover} alt={`${title} cover`} class="size-full rounded-[4px]"/>
+            <img src={cover} alt={`${title} cover`} class="size-full rounded-[4px]" transition:name={`aside-playlist-${id}-img`}/>
         </picture>
         
         <div class="w-full h-full flex flex-row justify-between">

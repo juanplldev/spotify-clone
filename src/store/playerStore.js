@@ -1,27 +1,15 @@
 import {create} from "zustand";
+import {playlists, songs} from "@/lib/data";
+
+const playlistSongs = songs.filter(song => song.albumId === playlists[0].albumId);
 
 export const usePlayerStore = create(set => ({
     isPlaying: false,
     currentMusic: {
-        playlist: null,
-        song: null,
-        songs: [],
+        playlist: playlists[0],
+        songs: playlistSongs,
+        song: playlistSongs[0],
     },
     setIsPlaying: (isPlaying) => set({isPlaying}),
     setCurrentMusic: (currentMusic) => set({currentMusic}),
 }));
-
-
-export default function usePlayerStoree()
-{
-    return create(set => ({
-        isPlaying: false,
-        currentMusic: {
-            playlist: null,
-            song: null,
-            songs: [],
-        },
-        setIsPlaying: (isPlaying) => set({isPlaying}),
-        setCurrentMusic: (currentMusic) => set({currentMusic}),
-    })).getState();
-};

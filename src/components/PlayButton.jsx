@@ -1,4 +1,5 @@
 import {usePlayerStore} from "@/store/playerStore";
+import {getPlaylistData} from "@/lib/api";
 import {Play, Pause} from "@/icons/PlayerIcons";
 
 
@@ -6,29 +7,26 @@ function PlayButton(props)
 {
     const {id, size} = props;
     const {isPlaying, currentMusic, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state);
-    const isPlayingPlaylist = isPlaying && currentMusic?.playlist.id === id;
+    const isPlayingPlaylist = isPlaying && currentMusic.playlist.id === id;
     
-    function handleOnCLick()
+    async function handleOnClick()
     {
-        setCurrentMusic({
-            playlist: {id}
-        });
-        
-        if(isPlaying && !isPlayingPlaylist)
+        if(isPlayingPlaylist)
         {
-            // setCurrentMusic({
-            //     playlist: {id}
-            // });
+            setIsPlaying(false);
         }
         else
         {
-            setIsPlaying(!isPlaying);
+            const {playlist, playlistSongs} = await getPlaylistData(id);
+            
+            setIsPlaying(true);
+            setCurrentMusic({playlist, songs: playlistSongs, song: playlistSongs[0]});
         };
     };
     
     
     return (
-        <button className={`bg-[#1ed760] rounded-full ${size === "lg" ? "p-[18px]" : "p-[14px]"} shadow-lg shadow-[#0000004d] hover:bg-[#1fdf64] hover:scale-105`} onClick={handleOnCLick}>
+        <button className={`bg-[#1ed760] rounded-full ${size === "lg" ? "p-[18px]" : "p-[14px]"} shadow-lg shadow-[#0000004d] hover:bg-[#1fdf64] hover:scale-105`} onClick={handleOnClick}>
             {
                 isPlayingPlaylist ? <Pause styles="fill-black size-5"/>
                 :

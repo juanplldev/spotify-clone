@@ -1,14 +1,14 @@
 # Spotify-clone
 
-This is a UI clone from [Spotify Web](https://open.spotify.com/) made exclusively for learning purposes.
+This is a UI clone from [Spotify Web](https://open.spotify.com/) made exclusively for learning and practice purposes.
+
+> [!WARNING]
+> This project is not responsive
 
 ## Features
 
 - View Transitions API integrated
 - Play demo music
-
-> [!WARNING]
-> This project is not responsive
 
 ## Main Technologies
 
@@ -48,9 +48,10 @@ bun/npm start
 
 ## Visit the website
 
+https://spotify-clone.vercel.app
+
 > [!CAUTION]
 > Example URL, final URL will be added soon
-https://spotify-clone.vercel.app
 
 ## Contact
 

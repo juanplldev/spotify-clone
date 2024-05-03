@@ -4,7 +4,7 @@ import Header from "@/components/Main/Header.astro";
 import Background from "@/components/Main/Background";
 import TopPlaylistCard from "@/components/Main/TopPlaylistCard.astro";
 import MainPlaylistCard from "@/components/Main/MainPlaylistCard.astro";
-import {playlists} from "@/lib/api";
+import {playlists} from "@/lib/data";
 
 const currentDate = new Date();
 const currentTime = currentDate.getHours();
@@ -15,8 +15,8 @@ const currentTime = currentDate.getHours();
     <div id="main-container" class="relative h-full w-full py-2 px-6 rounded-lg bg-[#121212] z-10">
         
         <header>
-            <Background color="" />
-            <Header/>
+            <Background color="" client:load/>
+            <Header />
             
             <div class="flex items-center py-2">
                 <h2 class="font-bold text-3xl">
@@ -31,7 +31,7 @@ const currentTime = currentDate.getHours();
             </div>
         </header>
         
-        <ul class="min-40 w-full pt-2 gap-2 grid grid-cols-2 grid-rows-4 xl:gap-x-3 xl:grid-cols-4 xl:grid-rows-2">
+        <ul class="min-40 w-full pt-2 gap-2 grid grid-cols-2 grid-rows-4 xl:gap-3 xl:grid-cols-4 xl:grid-rows-2">
             {
                 playlists.map(playlist => <TopPlaylistCard playlist={playlist} />)
             }
@@ -48,14 +48,3 @@ const currentTime = currentDate.getHours();
         </div>
     </div>
 </Layout>
-
-
-<script>
-    // const headerPlaylist = document.getElementById("header-playlist");
-    // const gradientContainer = document.getElementById("gradient-container");
-    // colo
-    // headerPlaylist?.addEventListener("mouseover", e => {
-    //     // gradientContainer
-        
-    // });
-</script>

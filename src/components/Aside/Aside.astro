@@ -1,5 +1,5 @@
 ---
-import type {Playlist} from "@/lib/api";
+import type {Playlist} from "@/lib/data";
 import Item from "@/components/Aside/Item.astro"
 import PlaylistCard from "@/components/Aside/PlaylistCard.astro";
 import {Home, Search, Library} from "@/icons/AsideIcons";
@@ -10,6 +10,7 @@ interface Props
 };
 
 const {playlists} = Astro.props;
+const isHome = Astro.params?.id ? false : true;
 ---
 
 
@@ -17,9 +18,12 @@ const {playlists} = Astro.props;
     <div class="bg-[#121212] rounded-lg">
         <ul class="py-2 px-3">
             <Item href="/#">
-                <Home styles="h-6 w-6 fill-current" type=""/>
-                <!-- <span class="font-bold">Home</span> -->
-                <span>Home</span>
+                {
+                    isHome ? <Home styles="h-6 w-6 fill-white" type="filled"/>
+                    :
+                    <Home styles="h-6 w-6 fill-current" type=""/>
+                }
+                <span class:list={[isHome && "text-white"]}>Home</span>
             </Item>
             
             <Item href="/#">
@@ -39,7 +43,7 @@ const {playlists} = Astro.props;
         
         <ul>
             {
-                playlists.map(playlist => <PlaylistCard playlist={playlist} pinned={true} />)
+                playlists.map(playlist => <PlaylistCard playlist={playlist} pinned={playlist.pinned} />)
             }
         </ul>
     </div>
