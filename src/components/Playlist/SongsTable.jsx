@@ -30,13 +30,13 @@ function SongsTable(props)
     return (
         <table className="table-auto text-left w-full">
             <thead className="border-b-[1px] border-b-[#ffffff1a]">
-                <tr className="text-[#b3b3b3] text-sm">
+                <tr className="text-secondary text-sm">
                     <th className="font-normal text-[16px] text-center pb-2">#</th>
                     <th className="font-normal pb-2">Title</th>
                     <th className="font-normal pb-2">Album</th>
                     <th className="font-normal pb-2">Date added</th>
                     <th className="pb-2 absolute right-[75px]">
-                        <Clock styles="fill-[#b3b3b3] size-4"/>
+                        <Clock styles="fill-secondary size-4"/>
                     </th>
                 </tr>
             </thead>
@@ -49,7 +49,7 @@ function SongsTable(props)
                         
                         return (
                             <tr className="hover:bg-[#ffffff1a] focus:bg-[#ffffff4d] duration-75 group relative" key={song.title}>
-                                <td className="size-12 song-container py-[6px] text-[#b3b3b3] text-center align-middle rounded-tl-md rounded-bl-md">
+                                <td className="size-12 song-container py-[6px] text-secondary text-center align-middle rounded-tl-md rounded-bl-md">
                                     <div className="size-full flex justify-center items-center relative">
                                         {
                                             isPlayingSong ? <Equalizer styles="h-4 w-4 fill-[#1DB954] group-hover:opacity-0 transition-all duration-75"/>
@@ -59,9 +59,9 @@ function SongsTable(props)
                                         
                                         <button className="absolute cursor-default" onClick={async () => await handleOnClick(isPlayingSong, song.id - 1)}>
                                             {
-                                                isPlayingSong ? <Pause styles="fill-white size-4 opacity-0 group-hover:opacity-100 transition-all duration-75"/>
+                                                isPlayingSong ? <Pause styles="fill-primary size-4 opacity-0 group-hover:opacity-100 transition-all duration-75"/>
                                                 :
-                                                <Play styles="fill-white size-4 opacity-0 group-hover:opacity-100 transition-all duration-75"/>
+                                                <Play styles="fill-primary size-4 opacity-0 group-hover:opacity-100 transition-all duration-75"/>
                                             }
                                         </button>
                                     </div>
@@ -74,12 +74,12 @@ function SongsTable(props)
                                     <div className="flex flex-col">
                                         <a href="" className={`${isPlayingSong && "text-[#1ed760]"} hover:underline`}>{song.title}</a>
                                         
-                                        <span className="inline-flex text-sm text-[#b3b3b3]">
+                                        <span className="inline-flex text-sm text-secondary">
                                             {
                                                 playlist?.artists.map((artist, index) => {
                                                     return (
                                                         <a href="" className="inline-flex" key={index}>
-                                                            <p className=" hover:underline group-hover:text-white">{artist}</p>
+                                                            <p className=" hover:underline group-hover:text-primary">{artist}</p>
                                                             {
                                                                 index + 1 < playlist?.artists.length && <>,&nbsp;</>
                                                             }
@@ -91,20 +91,20 @@ function SongsTable(props)
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="" className="text-sm text-[#b3b3b3] hover:underline group-hover:text-white">{song.album}</a>
+                                    <a href="" className="text-sm text-secondary hover:underline group-hover:text-primary">{song.album}</a>
                                 </td>
-                                <td className="py-[6px] text-sm text-[#b3b3b3]">Apr 26, 2024</td>
+                                <td className="py-[6px] text-sm text-secondary">Apr 26, 2024</td>
                                 <td className="py-[6px]">
                                     <button>
-                                        <AddPlaylist styles="size-4 fill-[#b3b3b3] absolute bottom-5 right-[100px] opacity-0 group-hover:opacity-100 hover:fill-white transition duration-100 hover:scale-105"/>
+                                        <AddPlaylist styles="size-4 fill-secondary absolute bottom-5 right-[100px] opacity-0 group-hover:opacity-100 hover:fill-primary transition duration-100 hover:scale-105"/>
                                     </button>
                                 </td>
                                 <td className="py-[6px]">
                                     <button>
-                                        <ThreeDots styles="size-6 fill-[#b3b3b3] absolute bottom-4 right-2 opacity-0 group-hover:opacity-100 hover:fill-white transition duration-100 hover:scale-105"/>
+                                        <ThreeDots styles="size-6 fill-secondary absolute bottom-4 right-2 opacity-0 group-hover:opacity-100 hover:fill-primary transition duration-100 hover:scale-105"/>
                                     </button>
                                 </td>
-                                <td className="py-[6px] text-center text-sm text-[#b3b3b3] rounded-tr-md rounded-br-md">{song.duration}</td>
+                                <td className="py-[6px] text-center text-sm text-secondary rounded-tr-md rounded-br-md">{song.duration}</td>
                             </tr>
                         );
                     })

@@ -19,11 +19,11 @@ const isHome = Astro.params?.id ? false : true;
         <ul class="py-2 px-3">
             <Item href="/#">
                 {
-                    isHome ? <Home styles="h-6 w-6 fill-white" type="filled"/>
+                    isHome ? <Home styles="h-6 w-6 fill-primary" type="filled"/>
                     :
                     <Home styles="h-6 w-6 fill-current" type=""/>
                 }
-                <span class:list={[isHome && "text-white"]}>Home</span>
+                <span class:list={[isHome && "text-primary"]}>Home</span>
             </Item>
             
             <Item href="/#">

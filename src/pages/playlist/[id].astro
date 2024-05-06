@@ -28,7 +28,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                 <div class="h-full pb-6 flex flex-col justify-end text-left items-start gap-2">
                     <span class="text-sm">Playlist</span>
                     <h1 class="text-8xl font-extrabold" transition:name={`main-playlist-${id}-title`}>{playlist?.title}</h1>
-                    <span class="text-sm text-[#ffffffb3]">{playlist?.description}</span>
+                    <span class="text-sm text-tertiary">{playlist?.description}</span>
                         
                     <div class="flex items-center gap-1">
                         <SpotifyIcon styles="size-6"/>
@@ -38,7 +38,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                                 playlistSongs[0]?.artists.map((artist, index) => {
                                     return (
                                         <span class="inline-flex">
-                                            <p class="hover:underline hover:text-white">{artist}</p>
+                                            <p class="hover:underline hover:text-primary">{artist}</p>
                                             {
                                                 index + 1 < playlistSongs[0]?.artists.length && <>,&nbsp;</>
                                             }
@@ -48,7 +48,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                             }
                         </a>
                         
-                        <p class="text-sm text-[#ffffffb3]">• {playlistSongs.length} songs, about 2 hr 30min</p>
+                        <p class="text-sm text-tertiary">• {playlistSongs.length} songs, about 2 hr 30min</p>
                     </div>
                 </div>
             </div>
@@ -60,15 +60,15 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                     <PlayButton id={id} isPlaying={false} size="lg" client:visible />
                     
                     <button>
-                        <AddPlaylist styles="size-8 fill-[#b3b3b3] hover:fill-white transition duration-100 hover:scale-105"/>
+                        <AddPlaylist styles="size-8 fill-secondary hover:fill-primary transition duration-100 hover:scale-105"/>
                     </button>
                     
                     <button>
-                        <ThreeDots styles="size-8 fill-[#b3b3b3] hover:fill-white transition duration-100 hover:scale-105"/>
+                        <ThreeDots styles="size-8 fill-secondary hover:fill-primary transition duration-100 hover:scale-105"/>
                     </button>
                 </div>
                 
-                <button class="flex items-center text-sm text-[#b3b3b3] gap-2 fill-[#b3b3b3] hover:fill-white hover:text-white transition duration-100">
+                <button class="flex items-center text-sm text-secondary gap-2 fill-secondary hover:fill-primary hover:text-primary transition duration-100">
                     <span>List</span>
                     <ListView styles="size-4"/>
                 </button>

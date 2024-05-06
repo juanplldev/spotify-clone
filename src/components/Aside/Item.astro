@@ -12,11 +12,11 @@ const {href, type} = Astro.props;
 <li class="px-3 py-1">
     {
         type === "button" ?
-        <button class="h-10 flex content-center gap-5 text-[#b3b3b3] hover:text-white items-center font-bold transition duration-200">
+        <button class="h-10 flex content-center gap-5 text-secondary hover:text-primary items-center font-bold transition duration-200">
             <slot />
         </button>
         :
-        <a href={href} class="h-10 flex content-center gap-5 text-[#b3b3b3] hover:text-white items-center font-bold transition duration-200">
+        <a href={href} class="h-10 flex content-center gap-5 text-secondary hover:text-primary items-center font-bold transition duration-200">
             <slot />
         </a>
     }

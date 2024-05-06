@@ -23,12 +23,12 @@ const playlistSongs = songs.filter(song => song.albumId === albumId);
         <div class="max-w-40 flex flex-col text-start gap-2">
             <h2 class="font-normal line-clamp-1" transition:name={`main-playlist-${id}-title`}>{title}</h2>
             
-            <div class="text-sm text-[#b3b3b3] truncate" transition:name={`main-playlist-${id}-artists`}>
+            <div class="text-sm text-secondary truncate" transition:name={`main-playlist-${id}-artists`}>
                 {
                     playlistSongs[0].artists.map((artist, index) => {
                         return (
                             <span class="inline-flex">
-                                <p class="hover:underline hover:text-white">{artist}</p>
+                                <p class="hover:underline hover:text-primary">{artist}</p>
                                 {
                                     index + 1 < playlistSongs[0].artists.length && <>,&nbsp;</>
                                 }
