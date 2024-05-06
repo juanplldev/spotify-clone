@@ -7,6 +7,7 @@ import {Equalizer} from "@/icons/MainIcons";
 function SongsTable(props)
 {
     const id = props?.id;
+    const playlist = props?.playlist;
     const songs = props?.songs;
     const {isPlaying, currentMusic, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state);
     const isPlayingPlaylist = isPlaying && currentMusic.playlist.id === id;
@@ -73,18 +74,20 @@ function SongsTable(props)
                                     <div className="flex flex-col">
                                         <a href="" className={`${isPlayingSong && "text-[#1ed760]"} hover:underline`}>{song.title}</a>
                                         
-                                        {
-                                            song.artists.map((artist, index) => {
-                                                return (
-                                                    <a href="" className="inline-flex" key={index}>
-                                                        <p className="text-sm text-[#b3b3b3] hover:underline group-hover:text-white">{artist}</p>
-                                                        {
-                                                            index + 1 < song.artists.length && <>,&nbsp;</>
-                                                        }
-                                                    </a>
-                                                );
-                                            })
-                                        }
+                                        <span className="inline-flex text-sm text-[#b3b3b3]">
+                                            {
+                                                playlist?.artists.map((artist, index) => {
+                                                    return (
+                                                        <a href="" className="inline-flex" key={index}>
+                                                            <p className=" hover:underline group-hover:text-white">{artist}</p>
+                                                            {
+                                                                index + 1 < playlist?.artists.length && <>,&nbsp;</>
+                                                            }
+                                                        </a>
+                                                    );
+                                                })
+                                            }
+                                        </span>
                                     </div>
                                 </td>
                                 <td>

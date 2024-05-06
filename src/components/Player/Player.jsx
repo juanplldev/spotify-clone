@@ -1,13 +1,16 @@
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {usePlayerStore} from "@/store/playerStore";
 import {AddSong, Play, Pause, Previous, Next, Shuffle, Repeat, Volume} from "@/icons/PlayerIcons";
+import {Slider} from "@/components/Player/Slider";
 
 
-function Player(props)
+function Player()
 {
-    const {isPlaying, currentMusic, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state);
-    const {playlist, songs, song} = currentMusic;
+    const {isPlaying, currentMusic, setIsPlaying, volume, setVolume} = usePlayerStore(state => state);
+    const {playlist, song} = currentMusic;
     const audioRef = useRef();
+    const volumeRef = useRef();
+    const [volumeLevel, setVolumeLevel] = useState();
     
     useEffect(() => {
         if(isPlaying) audioRef.current.play();
@@ -15,19 +18,67 @@ function Player(props)
     }, [isPlaying]);
     
     useEffect(() => {
+        volumeRef.current = volume.current / 100;
+        audioRef.current.volume = volumeRef.current;
+        
+        if(volumeRef.current > 0 && volumeRef.current <= 0.3)
+        {
+            setVolumeLevel("low");
+        }
+        else if(volumeRef.current >= 0.3 && volumeRef.current <= 0.6)
+        {
+            setVolumeLevel("medium");
+        }
+        else if(volumeRef.current >= 0.6)
+        {
+            setVolumeLevel("high");
+        }
+        else
+        {
+            setVolumeLevel("muted");
+        };
+    }, [volume]);
+    
+    useEffect(() => {
         if(song)
         {
             audioRef.current.src = `/music/${playlist?.id}/0${song.id}.mp3`;
             audioRef.current.play();
-            
-            audioRef.current.volume = 0.3;
-        }
+        };
     }, [currentMusic]);
+    
+    function handleMuteAndUnmute()
+    {
+        if(volumeLevel !== "muted")
+        {
+            setVolume({
+                current: 0,
+                last: volume.current,
+            });
+        }
+        else
+        {
+            setVolume({
+                current: volume.last,
+                last: 0,
+            });
+        };
+    };
     
     function handleOnClick()
     {
         setIsPlaying(!isPlaying);
     };
+    
+    function handleSliderOnChange(value)
+    {
+        const [newVolume] = value;
+        setVolume({
+            current: newVolume,
+            last: volume.current,
+        });
+    };
+    
     
     return (
         <div className="h-full w-full bg-[#000] rounded-lg grid grid-cols-3">
@@ -41,12 +92,12 @@ function Player(props)
                     
                     <div className="text-xs text-[#b3b3b3] truncate">
                         {
-                            song?.artists.map((artist, index) => {
+                            playlist?.artists.map((artist, index) => {
                                 return (
                                     <span className="inline-flex" key={artist}>
                                         <a href="/#" className="hover:underline hover:text-white">{artist}</a>
                                         {
-                                            index + 1 < song?.artists.length && <>,&nbsp;</>
+                                            index + 1 < playlist?.artists.length && <>,&nbsp;</>
                                         }
                                     </span>
                                 )
@@ -63,37 +114,47 @@ function Player(props)
             <div className="mb-5 flex flex-col justify-center items-center">
                 <div className="flex">
                     <button className="m-3 group">
-                        <Shuffle styles="fill-[#ffffffb3] h-4 w-4 group-active:fill-[#1DB954]"/>
+                        <Shuffle styles="fill-[#ffffffb3] size-4 group-hover:fill-white group-active:fill-[#1DB954]"/>
                     </button>
                     <button className="m-4 group">
-                        <Previous styles="fill-[#ffffffb3] h-4 w-4 group-hover:fill-white"/>
+                        <Previous styles="fill-[#ffffffb3] size-4 group-hover:fill-white"/>
                     </button>
                     <button className="bg-white rounded-full p-2 m-2" onClick={handleOnClick}>
                         {
-                            isPlaying ? <Pause styles="fill-black h-4 w-4"/>
+                            isPlaying ? <Pause styles="fill-black size-4"/>
                             :
-                            <Play styles="fill-black h-4 w-4"/>
+                            <Play styles="fill-black size-4"/>
                         }
                     </button>
                     <button className="m-4 group">
-                        <Next styles="fill-[#ffffffb3] h-4 w-4 group-hover:fill-white"/>
+                        <Next styles="fill-[#ffffffb3] size-4 group-hover:fill-white"/>
                     </button>
                     <button className="m-3 group">
-                        <Repeat styles="fill-[#ffffffb3] h-4 w-4 group-active:fill-[#1DB954]"/>
+                        <Repeat styles="fill-[#ffffffb3] size-4 group-hover:fill-white group-active:fill-[#1DB954]"/>
                     </button>
                 </div>
-                    <audio ref={audioRef} />
+                    
                 <div>
-                
+                    
                 </div>
             </div>
             
-            <div className="">
-                {/* <button className="m-3">
-                    <Volume styles="fill-current h-4 w-4" type="high"/>
-                </button> */}
+            <div className="flex items-center justify-end gap-2 mr-8">
+                <button className="m-1 group" onClick={handleMuteAndUnmute}>
+                    <Volume styles="fill-[#ffffffb3] size-4 group-hover:fill-white" type={volumeLevel}/>
+                </button>
+                
+                <Slider
+                    value={[volume.current]}
+                    min={0}
+                    max={100}
+                    className="w-24"
+                    onValueChange={value => handleSliderOnChange(value)}
+                />
             </div>
-    </div>
+            
+            <audio ref={audioRef} />
+        </div>
     );
 };
 

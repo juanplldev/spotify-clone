@@ -1,6 +1,7 @@
 ---
 import type {Playlist} from "@/lib/data";
 import PlayButton from "@/components/PlayButton";
+import {songs} from "@/lib/data";
 
 interface Props
 {
@@ -8,7 +9,8 @@ interface Props
 };
 
 const {playlist} = Astro.props;
-const {id, cover, title, artists} = playlist;
+const {id, cover, title, artists, albumId} = playlist;
+const playlistSongs = songs.filter(song => song.albumId === albumId);
 ---
 
 
@@ -23,12 +25,12 @@ const {id, cover, title, artists} = playlist;
             
             <div class="text-sm text-[#b3b3b3] truncate" transition:name={`main-playlist-${id}-artists`}>
                 {
-                    artists.map((artist, index) => {
+                    playlistSongs[0].artists.map((artist, index) => {
                         return (
                             <span class="inline-flex">
                                 <p class="hover:underline hover:text-white">{artist}</p>
                                 {
-                                    index + 1 < artists.length && <>,&nbsp;</>
+                                    index + 1 < playlistSongs[0].artists.length && <>,&nbsp;</>
                                 }
                             </span>
                         );

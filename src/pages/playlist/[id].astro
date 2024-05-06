@@ -35,12 +35,12 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                         
                         <a href="" class="text-sm font-bold" transition:name={`main-playlist-${id}-artists`}>
                             {
-                                playlist?.artists.map((artist, index) => {
+                                playlistSongs[0]?.artists.map((artist, index) => {
                                     return (
                                         <span class="inline-flex">
                                             <p class="hover:underline hover:text-white">{artist}</p>
                                             {
-                                                index + 1 < playlist?.artists.length && <>,&nbsp;</>
+                                                index + 1 < playlistSongs[0]?.artists.length && <>,&nbsp;</>
                                             }
                                         </span>
                                     );
@@ -75,7 +75,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
             </div>
             
             <div class="pt-4">
-                <SongsTable id={id} songs={playlistSongs} client:visible/>
+                <SongsTable id={id} playlist={playlist} songs={playlistSongs} client:visible/>
             </div>
         </section>
     </div>
