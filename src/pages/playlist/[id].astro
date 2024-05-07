@@ -12,12 +12,14 @@ const {id} = Astro.params;
 const playlist = playlists.find(playlist => playlist.id === id);
 const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId);
 const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-clone";
+
+if(!playlist) return Astro.redirect("/404");
 ---
 
 <Layout title={title}>
     <div class="h-full w-full pt-2 relative flex flex-col overflow-x-hidden rounded-lg bg-[#121212]" transition:name={`main-playlist-${id}-container`} >
         <header class="h-[334px] flex flex-col px-6">
-            <Background color={playlist?.color.dark} />
+            <Background color={playlist?.color} />
             <MainHeader/>
             
             <div class="h-full flex items-center">
@@ -35,12 +37,12 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                         
                         <a href="" class="text-sm font-bold" transition:name={`main-playlist-${id}-artists`}>
                             {
-                                playlistSongs[0]?.artists.map((artist, index) => {
+                                playlist?.artists.map((artist, index) => {
                                     return (
                                         <span class="inline-flex">
                                             <p class="hover:underline hover:text-primary">{artist}</p>
                                             {
-                                                index + 1 < playlistSongs[0]?.artists.length && <>,&nbsp;</>
+                                                index + 1 < playlist?.artists.length && <>,&nbsp;</>
                                             }
                                         </span>
                                     );
@@ -48,7 +50,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
                             }
                         </a>
                         
-                        <p class="text-sm text-tertiary">• {playlistSongs.length} songs, about 2 hr 30min</p>
+                        <p class="text-sm text-tertiary">• {playlistSongs.length} songs, {playlist?.duration}</p>
                     </div>
                 </div>
             </div>
@@ -75,7 +77,7 @@ const title = playlist?.title ? `${playlist?.title} | Spotify-clone` : "Spotify-
             </div>
             
             <div class="pt-4">
-                <SongsTable id={id} playlist={playlist} songs={playlistSongs} client:visible/>
+                <SongsTable id={id} songs={playlistSongs} client:visible/>
             </div>
         </section>
     </div>

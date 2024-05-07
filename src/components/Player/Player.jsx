@@ -6,8 +6,8 @@ import {Slider} from "@/components/Player/Slider";
 
 function Player()
 {
-    const {isPlaying, currentMusic, volume, setIsPlaying, setVolume} = usePlayerStore(state => state);
-    const {playlist, song} = currentMusic;
+    const {isPlaying, currentMusic, volume, setIsPlaying, setCurrentMusic, setVolume} = usePlayerStore(state => state);
+    const {playlist, songs, song} = currentMusic;
     const audioRef = useRef();
     const volumeRef = useRef();
     const [volumeLevel, setVolumeLevel] = useState();
@@ -52,7 +52,7 @@ function Player()
         audioRef.current?.addEventListener("timeupdate", handleTimeUpdate);
         
         return () => audioRef.current?.removeEventListener("timeupdate", handleTimeUpdate);
-    }, []);
+    });
     
     function handleMuteVolume()
     {
@@ -92,11 +92,16 @@ function Player()
         if(Array.isArray(value))
         {
             const [newTime] = value;
-            audioRef.current.currentTime = newTime;
+            const isNaN = Number.isNaN(newTime);
+            audioRef.current.currentTime = !isNaN ? newTime : 0;
+            
+            if(audioRef.current?.currentTime === audioRef.current?.duration) handleSkipControls("next");
         }
         else
         {
             setCurrentTime(audioRef.current.currentTime);
+            
+            if(audioRef.current?.currentTime === audioRef.current?.duration) handleSkipControls("next");
         };
     };
     
@@ -109,6 +114,23 @@ function Player()
         });
     };
     
+    function handleSkipControls(type)
+    {
+        const songIndex = song?.id - 1;
+        
+        if(type === "next")
+        {
+            const nextSong = songs.length > song?.id;
+            
+            if(nextSong) setCurrentMusic({playlist, songs: songs, song: songs[songIndex + 1]});
+        }
+        else if(type === "forward")
+        {
+            const previousSong = song?.id > 1;
+            
+            if(previousSong) setCurrentMusic({playlist, songs: songs, song: songs[songIndex - 1]});
+        };
+    };
     
     return (
         <div className="h-full w-full bg-black rounded-lg grid grid-cols-3">
@@ -122,12 +144,12 @@ function Player()
                     
                     <div className="text-xs text-secondary truncate">
                         {
-                            playlist?.artists.map((artist, index) => {
+                            song?.artists.map((artist, index) => {
                                 return (
                                     <span className="inline-flex" key={artist}>
                                         <a href={`/playlist/${playlist?.id}`} className="hover:underline hover:text-primary">{artist}</a>
                                         {
-                                            index + 1 < playlist?.artists.length && <>,&nbsp;</>
+                                            index + 1 < song?.artists.length && <>,&nbsp;</>
                                         }
                                     </span>
                                 );
@@ -146,8 +168,8 @@ function Player()
                     <button className="m-3 group">
                         <Shuffle styles="fill-tertiary size-4 group-hover:fill-primary group-active:fill-[#1DB954]"/>
                     </button>
-                    <button className="m-4 group">
-                        <Previous styles="fill-tertiary size-4 group-hover:fill-primary"/>
+                    <button className="m-4 group" onClick={() => handleSkipControls("forward")} disabled={song?.id <= 1} >
+                        <Previous styles="fill-tertiary size-4 group-hover:fill-primary group-disabled:fill-tertiary/30"/>
                     </button>
                     <button className="bg-white rounded-full p-2 m-2" onClick={handleOnClick}>
                         {
@@ -156,8 +178,8 @@ function Player()
                             <Play styles="fill-black size-4"/>
                         }
                     </button>
-                    <button className="m-4 group">
-                        <Next styles="fill-tertiary size-4 group-hover:fill-primary"/>
+                    <button className="m-4 group" onClick={() => handleSkipControls("next")} disabled={songs.length <= song?.id} >
+                        <Next styles="fill-tertiary size-4 group-hover:fill-primary group-disabled:fill-tertiary/30"/>
                     </button>
                     <button className="m-3 group">
                         <Repeat styles="fill-tertiary size-4 group-hover:fill-primary group-active:fill-[#1DB954]"/>

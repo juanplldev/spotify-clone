@@ -2,7 +2,6 @@
 import type {Playlist} from "@/lib/data";
 import PlayingPlaylistIcon from "@/components/PlayingPlaylistIcon";
 import {Pinned} from "@/icons/AsideIcons";
-import {songs} from "@/lib/data";
 
 interface Props
 {
@@ -11,8 +10,7 @@ interface Props
 };
 
 const {playlist, pinned} = Astro.props;
-const {id, cover, title, artists, albumId} = playlist;
-const playlistSongs = songs.filter(song => song.albumId === albumId);
+const {id, cover, title, artists} = playlist;
 ---
 
 
@@ -31,7 +29,7 @@ const playlistSongs = songs.filter(song => song.albumId === albumId);
                         pinned && <Pinned styles="h-3 w-3 fill-[#1DB954]"/>
                     }
                     
-                    <span class="text-secondary text-sm line-clamp-1">{playlistSongs[0].artists.join(", ")}</span>
+                    <span class="text-secondary text-sm line-clamp-1">{artists.join(", ")}</span>
                 </div>
             </div>
             

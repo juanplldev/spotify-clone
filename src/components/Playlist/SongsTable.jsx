@@ -7,7 +7,6 @@ import {Equalizer} from "@/icons/MainIcons";
 function SongsTable(props)
 {
     const id = props?.id;
-    const playlist = props?.playlist;
     const songs = props?.songs;
     const {isPlaying, currentMusic, setIsPlaying, setCurrentMusic} = usePlayerStore(state => state);
     const isPlayingPlaylist = isPlaying && currentMusic.playlist.id === id;
@@ -76,12 +75,12 @@ function SongsTable(props)
                                         
                                         <span className="inline-flex text-sm text-secondary">
                                             {
-                                                playlist?.artists.map((artist, index) => {
+                                                song.artists.map((artist, index) => {
                                                     return (
                                                         <a href="" className="inline-flex" key={index}>
                                                             <p className=" hover:underline group-hover:text-primary">{artist}</p>
                                                             {
-                                                                index + 1 < playlist?.artists.length && <>,&nbsp;</>
+                                                                index + 1 < song.artists.length && <>,&nbsp;</>
                                                             }
                                                         </a>
                                                     );

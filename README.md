@@ -1,9 +1,9 @@
 # Spotify-clone
 
-This is a UI clone from [Spotify Web](https://open.spotify.com/) made exclusively for learning and practice purposes.
+This is a [Spotify Web](https://open.spotify.com/) UI clone made for learning Astro and other technologies.
 
 > [!WARNING]
-> This project is not responsive
+> This project is not fully responsive
 
 ## Features
 
