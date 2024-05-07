@@ -65,12 +65,12 @@ function SongsTable(props)
                                         </button>
                                     </div>
                                 </td>
-                                <td className="py-[6px] flex items-center gap-3">
+                                <td className="py-[6px] flex items-center gap-3 truncate">
                                     <picture className="size-10">
                                         <img src={song.image} alt={`${song} cover`} className="size-full rounded" />
                                     </picture>
                                     
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col max-w-36">
                                         <a href="" className={`${isPlayingSong && "text-[#1ed760]"} hover:underline`}>{song.title}</a>
                                         
                                         <span className="inline-flex text-sm text-secondary">
