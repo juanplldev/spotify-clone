@@ -18,8 +18,6 @@ This is a [Spotify Web](https://open.spotify.com/) UI clone made for learning As
 - [Zustand](https://zustand-demo.pmnd.rs/)
 - [Bun](https://bun.sh)
 
-## Getting Started
-
 ## Run Local
 
 Clone the project
@@ -48,10 +46,7 @@ bun/npm start
 
 ## Visit the website
 
-https://spotify-clone.vercel.app
-
-> [!CAUTION]
-> Example URL, final URL will be added soon
+https://spotifyclone-astro.vercel.app/
 
 ## Contact
 
